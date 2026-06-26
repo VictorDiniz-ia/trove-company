@@ -95,7 +95,7 @@ export default function Services() {
             {services.map((s, i) => (
               <div
                 key={i}
-                className={`scroll-reveal group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden transition-[transform,box-shadow] duration-300 ${i === 6 ? 'lg:col-start-3' : ''}`}
+                className={`group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden transition-[transform,box-shadow] duration-300 ${i === 6 ? 'lg:col-start-3' : ''}`}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.boxShadow = `0 20px 60px ${s.shadowColor}, 0 0 0 1px ${s.color}22`
                   e.currentTarget.style.transform = 'translateY(-6px)'
@@ -165,7 +165,7 @@ export default function Services() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
             <div className="hidden md:block absolute top-[54px] left-[calc(16.66%+32px)] right-[calc(16.66%+32px)] h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(200,207,217,0.1) 30%, rgba(200,207,217,0.1) 70%, transparent)' }} />
             {steps.map((step, i) => (
-              <div key={i} className="scroll-reveal flex flex-col items-center text-center p-8 rounded-2xl"
+              <div key={i} className="flex flex-col items-center text-center p-8 rounded-2xl"
                 style={{ background: 'linear-gradient(145deg, rgba(12,20,38,0.8), rgba(8,14,26,0.95))', border: '1px solid rgba(200,207,217,0.05)' }}
               >
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6 relative z-10" style={{ background: 'linear-gradient(145deg, #0e1628, #090f1e)', border: '1px solid rgba(200,207,217,0.1)' }}>
@@ -177,7 +177,7 @@ export default function Services() {
             ))}
           </div>
 
-          <div className="scroll-reveal text-center mt-16">
+          <div className="text-center mt-16">
             <p className="text-white/25 text-sm mb-6">Pronto para dar o próximo passo?</p>
             <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-primary px-10 py-4 rounded-full text-sm tracking-wide inline-flex items-center gap-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
