@@ -64,9 +64,9 @@ export default function Services() {
       <section id="servicos" className="relative py-32 px-6 overflow-hidden" style={{ background: '#060e1e' }}>
         {/* Orbes flutuantes */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div style={{ position: 'absolute', top: '-120px', left: '-120px', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(15,31,65,0.55) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'orbFloat1 18s ease-in-out infinite' }} />
-          <div style={{ position: 'absolute', bottom: '-80px', right: '-100px', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(12,25,55,0.5) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'orbFloat2 22s ease-in-out infinite', animationDelay: '-7s' }} />
-          <div style={{ position: 'absolute', top: '40%', left: '35%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(9,18,42,0.35) 0%, transparent 65%)', filter: 'blur(80px)', animation: 'orbFloat3 26s ease-in-out infinite', animationDelay: '-13s' }} />
+          <div className="blur-orb" style={{ position: 'absolute', top: '-120px', left: '-120px', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(15,31,65,0.55) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'orbFloat1 18s ease-in-out infinite' }} />
+          <div className="blur-orb" style={{ position: 'absolute', bottom: '-80px', right: '-100px', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(12,25,55,0.5) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'orbFloat2 22s ease-in-out infinite', animationDelay: '-7s' }} />
+          <div className="blur-orb" style={{ position: 'absolute', top: '40%', left: '35%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(9,18,42,0.35) 0%, transparent 65%)', filter: 'blur(80px)', animation: 'orbFloat3 26s ease-in-out infinite', animationDelay: '-13s' }} />
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(-45deg, rgba(200,207,217,0.016) 0px, rgba(200,207,217,0.016) 1px, transparent 1px, transparent 64px)' }} />
         </div>
         <div className="absolute top-0 left-0 right-0 h-32 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #060e1e, transparent)' }} />
@@ -133,7 +133,7 @@ export default function Services() {
       {/* ═══════ COMO FUNCIONA ═══════ */}
       <section className="relative py-28 px-6 overflow-hidden" style={{ background: '#060e1e' }}>
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div style={{ position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)', width: 700, height: 300, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,28,58,0.5) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+          <div className="blur-orb" style={{ position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)', width: 700, height: 300, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,28,58,0.5) 0%, transparent 70%)', filter: 'blur(60px)' }} />
         </div>
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(200,207,217,0.07), transparent)' }} />
 

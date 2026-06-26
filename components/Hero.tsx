@@ -11,12 +11,14 @@ export default function Hero() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const isMobile = window.innerWidth < 768
+    if (isMobile) return
+
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
-    const isMobile = window.innerWidth < 768
     const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = []
-    for (let i = 0; i < (isMobile ? 20 : 60); i++) {
+    for (let i = 0; i < 60; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -81,7 +83,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628]/60 via-transparent to-[#060e1e]" />
 
       {/* Círculo de luz central */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#152847]/30 blur-[120px] pointer-events-none" />
+      <div className="blur-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#152847]/30 blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         {/* Tag */}

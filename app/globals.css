@@ -71,6 +71,18 @@ body {
   box-shadow: 0 20px 60px var(--card-shadow), 0 0 0 1px var(--card-border);
 }
 
+/* iOS/mobile: desliga efeitos pesados de GPU */
+@media (max-width: 767px) {
+  .blur-orb {
+    filter: none !important;
+    opacity: 0.25;
+  }
+  .backdrop-blur-md {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
 /* Orbes flutuantes */
 @keyframes orbFloat1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
