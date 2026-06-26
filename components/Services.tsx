@@ -1,6 +1,6 @@
 'use client'
 
-import { useInView } from '@/hooks/useInView'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const WA = 'https://wa.me/5511913192334?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Trove%20Company.'
 
@@ -62,33 +62,27 @@ const steps = [
   { num: '3', title: 'Execução',    desc: 'Implementamos com precisão, monitoramos em tempo real e ajustamos continuamente para maximizar o retorno.' },
 ]
 
-/* ─── Card individual — cada um tem seu próprio observer ─── */
+function RevealBlock({ children, className = '', distance = 36, speed = 0.28 }: { children: React.ReactNode; className?: string; distance?: number; speed?: number }) {
+  const ref = useScrollReveal(distance, speed)
+  return <div ref={ref} className={className}>{children}</div>
+}
+
 function ServiceCard({ s, index }: { s: typeof services[0]; index: number }) {
-  const { ref, inView } = useInView()
+  const ref = useScrollReveal(36, 0.25)
 
   return (
     <div
       ref={ref}
       className={`group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden ${index === 6 ? 'lg:col-start-3' : ''}`}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(36px)',
-        transition: 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.35s ease',
-      }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = `0 20px 60px ${s.shadowColor}, 0 0 0 1px ${s.color}22`
-        e.currentTarget.style.transform = 'translateY(-6px)'
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = 'none'
-        e.currentTarget.style.transform = 'translateY(0)'
       }}
     >
-      {/* Borda gradiente */}
       <div className="absolute inset-0 rounded-2xl" style={{ background: `linear-gradient(135deg, ${s.color}18, transparent 60%, ${s.color}08)`, border: `1px solid ${s.color}14` }} />
-      {/* Fundo do card */}
       <div className="absolute inset-[1px] rounded-2xl" style={{ background: 'linear-gradient(145deg, rgba(10,18,32,0.97), rgba(7,13,24,0.99))' }} />
-      {/* Linha de brilho no topo */}
       <div className="absolute top-0 left-6 right-6 h-px" style={{ background: `linear-gradient(90deg, transparent, ${s.color}28, transparent)` }} />
 
       <div className="relative p-7">
@@ -119,22 +113,10 @@ function ServiceCard({ s, index }: { s: typeof services[0]; index: number }) {
   )
 }
 
-/* ─── Step individual ─── */
-function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
-  const { ref, inView } = useInView()
-
+function StepCard({ step }: { step: typeof steps[0] }) {
+  const ref = useScrollReveal(36, 0.25)
   return (
-    <div
-      ref={ref}
-      className="flex flex-col items-center text-center p-8 rounded-2xl"
-      style={{
-        background: 'linear-gradient(145deg, rgba(12,20,38,0.8), rgba(8,14,26,0.95))',
-        border: '1px solid rgba(200,207,217,0.05)',
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(36px)',
-        transition: 'opacity 0.5s ease, transform 0.5s ease',
-      }}
-    >
+    <div ref={ref} className="flex flex-col items-center text-center p-8 rounded-2xl" style={{ background: 'linear-gradient(145deg, rgba(12,20,38,0.8), rgba(8,14,26,0.95))', border: '1px solid rgba(200,207,217,0.05)' }}>
       <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6 relative z-10" style={{ background: 'linear-gradient(145deg, #0e1628, #090f1e)', border: '1px solid rgba(200,207,217,0.1)' }}>
         <span className="text-silver-gradient text-lg font-bold">{step.num}</span>
       </div>
@@ -144,72 +126,45 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
   )
 }
 
-/* ─── Animação de texto de seção ─── */
-function AnimatedText({ children, className = '', delay = '0s' }: { children: React.ReactNode; className?: string; delay?: string }) {
-  const { ref, inView } = useInView()
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity 0.5s ease ${delay}, transform 0.5s ease ${delay}`,
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
 export default function Services() {
   return (
     <>
-      {/* ═══════ SERVIÇOS ═══════ */}
       <section id="servicos" className="relative py-32 px-6 overflow-hidden" style={{ background: '#060e1e' }}>
-        {/* Orbes flutuantes */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div style={{ position: 'absolute', top: '-120px', left: '-120px', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(15,31,65,0.55) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'orbFloat1 18s ease-in-out infinite' }} />
           <div style={{ position: 'absolute', bottom: '-80px', right: '-100px', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(12,25,55,0.5) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'orbFloat2 22s ease-in-out infinite', animationDelay: '-7s' }} />
           <div style={{ position: 'absolute', top: '40%', left: '35%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(9,18,42,0.35) 0%, transparent 65%)', filter: 'blur(80px)', animation: 'orbFloat3 26s ease-in-out infinite', animationDelay: '-13s' }} />
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(-45deg, rgba(200,207,217,0.016) 0px, rgba(200,207,217,0.016) 1px, transparent 1px, transparent 64px)' }} />
         </div>
-
         <div className="absolute top-0 left-0 right-0 h-32 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #060e1e, transparent)' }} />
         <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style={{ background: 'linear-gradient(to top, #060e1e, transparent)' }} />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          {/* Header */}
           <div className="text-center mb-20">
-            <AnimatedText>
+            <RevealBlock>
               <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
                 <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
                 Nossas soluções
               </div>
-            </AnimatedText>
-            <AnimatedText delay="0.08s">
+            </RevealBlock>
+            <RevealBlock>
               <h2 className="text-4xl md:text-5xl font-bold mb-5">
                 Soluções que geram{' '}
                 <span className="text-silver-gradient">resultados reais.</span>
               </h2>
-            </AnimatedText>
-            <AnimatedText delay="0.14s">
+            </RevealBlock>
+            <RevealBlock>
               <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
                 Cada serviço é entregue com foco em performance, consistência e crescimento sustentável para o seu negócio.
               </p>
-            </AnimatedText>
+            </RevealBlock>
           </div>
-
-          {/* Grid de cards */}
           <div className="grid grid-cols-6 gap-4">
-            {services.map((s, i) => (
-              <ServiceCard key={i} s={s} index={i} />
-            ))}
+            {services.map((s, i) => <ServiceCard key={i} s={s} index={i} />)}
           </div>
         </div>
       </section>
 
-      {/* ═══════ COMO FUNCIONA ═══════ */}
       <section className="relative py-28 px-6 overflow-hidden" style={{ background: '#060e1e' }}>
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div style={{ position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)', width: 700, height: 300, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,28,58,0.5) 0%, transparent 70%)', filter: 'blur(60px)' }} />
@@ -218,33 +173,28 @@ export default function Services() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <AnimatedText>
+            <RevealBlock>
               <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
                 <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
                 Nosso processo
               </div>
-            </AnimatedText>
-            <AnimatedText delay="0.08s">
-              <h2 className="text-4xl md:text-5xl font-bold mb-5">
-                Como <span className="text-silver-gradient">trabalhamos.</span>
-              </h2>
-            </AnimatedText>
-            <AnimatedText delay="0.14s">
+            </RevealBlock>
+            <RevealBlock>
+              <h2 className="text-4xl md:text-5xl font-bold mb-5">Como <span className="text-silver-gradient">trabalhamos.</span></h2>
+            </RevealBlock>
+            <RevealBlock>
               <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
                 Um método claro, transparente e orientado a resultados — para que você saiba exatamente o que esperar.
               </p>
-            </AnimatedText>
+            </RevealBlock>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
             <div className="hidden md:block absolute top-[54px] left-[calc(16.66%+32px)] right-[calc(16.66%+32px)] h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(200,207,217,0.1) 30%, rgba(200,207,217,0.1) 70%, transparent)' }} />
-            {steps.map((step, i) => (
-              <StepCard key={i} step={step} index={i} />
-            ))}
+            {steps.map((step, i) => <StepCard key={i} step={step} />)}
           </div>
 
-          {/* CTA */}
-          <AnimatedText className="text-center mt-16">
+          <RevealBlock className="text-center mt-16">
             <p className="text-white/25 text-sm mb-6">Pronto para dar o próximo passo?</p>
             <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-primary px-10 py-4 rounded-full text-sm tracking-wide inline-flex items-center gap-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -252,7 +202,7 @@ export default function Services() {
               </svg>
               Agendar conversa gratuita no WhatsApp
             </a>
-          </AnimatedText>
+          </RevealBlock>
         </div>
       </section>
     </>
