@@ -1,5 +1,3 @@
-'use client'
-
 const WA = 'https://wa.me/5511913192334?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Trove%20Company.'
 
 const services = [
@@ -95,15 +93,8 @@ export default function Services() {
             {services.map((s, i) => (
               <div
                 key={i}
-                className={`group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden transition-[transform,box-shadow] duration-300 ${i === 6 ? 'lg:col-start-3' : ''}`}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 20px 60px ${s.shadowColor}, 0 0 0 1px ${s.color}22`
-                  e.currentTarget.style.transform = 'translateY(-6px)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none'
-                  e.currentTarget.style.transform = 'translateY(0)'
-                }}
+                className={`service-card group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden ${i === 6 ? 'lg:col-start-3' : ''}`}
+                style={{ '--card-shadow': s.shadowColor, '--card-border': `${s.color}22` } as React.CSSProperties}
               >
                 <div className="absolute inset-0 rounded-2xl" style={{ background: `linear-gradient(135deg, ${s.color}18, transparent 60%, ${s.color}08)`, border: `1px solid ${s.color}14` }} />
                 <div className="absolute inset-[1px] rounded-2xl" style={{ background: 'linear-gradient(145deg, rgba(10,18,32,0.97), rgba(7,13,24,0.99))' }} />
