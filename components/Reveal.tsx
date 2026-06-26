@@ -1,30 +1,23 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
 
-    const rect = el.getBoundingClientRect()
-    if (rect.top < window.innerHeight) return
-
-    el.style.opacity = '0'
-    el.style.transform = 'translateY(30px)'
-    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease'
-
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.style.opacity = '1'
-          el.style.transform = 'translateY(0)'
+          setVisible(true)
           obs.disconnect()
         }
       },
-      { threshold: 0.08, rootMargin: '0px 0px 40px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 40px 0px' }
     )
 
     obs.observe(el)
@@ -32,7 +25,15 @@ export default function Reveal({ children, className = '' }: { children: React.R
   }, [])
 
   return (
-    <div ref={ref} className={className}>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(28px)',
+        transition: 'opacity 0.55s ease, transform 0.55s ease',
+      }}
+    >
       {children}
     </div>
   )
