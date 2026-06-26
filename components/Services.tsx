@@ -1,7 +1,5 @@
 'use client'
 
-import { useScrollReveal } from '@/hooks/useScrollReveal'
-
 const WA = 'https://wa.me/5511913192334?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Trove%20Company.'
 
 const services = [
@@ -62,23 +60,21 @@ const steps = [
   { num: '3', title: 'Execução',    desc: 'Implementamos com precisão, monitoramos em tempo real e ajustamos continuamente para maximizar o retorno.' },
 ]
 
-function RevealBlock({ children, className = '', distance = 36, speed = 0.28 }: { children: React.ReactNode; className?: string; distance?: number; speed?: number }) {
-  const ref = useScrollReveal(distance, speed)
-  return <div ref={ref} className={className}>{children}</div>
-}
-
 function ServiceCard({ s, index }: { s: typeof services[0]; index: number }) {
-  const ref = useScrollReveal(36, 0.25)
+  const delay = `${0.4 + index * 0.12}s`
 
   return (
     <div
-      ref={ref}
-      className={`group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden ${index === 6 ? 'lg:col-start-3' : ''}`}
+      className={`group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden animate-fade-in-up ${index === 6 ? 'lg:col-start-3' : ''}`}
+      style={{ animationDelay: delay, animationDuration: '0.85s' }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = `0 20px 60px ${s.shadowColor}, 0 0 0 1px ${s.color}22`
+        e.currentTarget.style.transform = 'translateY(-6px)'
+        e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease'
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = 'none'
+        e.currentTarget.style.transform = 'translateY(0)'
       }}
     >
       <div className="absolute inset-0 rounded-2xl" style={{ background: `linear-gradient(135deg, ${s.color}18, transparent 60%, ${s.color}08)`, border: `1px solid ${s.color}14` }} />
@@ -113,19 +109,6 @@ function ServiceCard({ s, index }: { s: typeof services[0]; index: number }) {
   )
 }
 
-function StepCard({ step }: { step: typeof steps[0] }) {
-  const ref = useScrollReveal(36, 0.25)
-  return (
-    <div ref={ref} className="flex flex-col items-center text-center p-8 rounded-2xl" style={{ background: 'linear-gradient(145deg, rgba(12,20,38,0.8), rgba(8,14,26,0.95))', border: '1px solid rgba(200,207,217,0.05)' }}>
-      <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6 relative z-10" style={{ background: 'linear-gradient(145deg, #0e1628, #090f1e)', border: '1px solid rgba(200,207,217,0.1)' }}>
-        <span className="text-silver-gradient text-lg font-bold">{step.num}</span>
-      </div>
-      <h3 className="text-white font-bold text-xl mb-3">{step.title}</h3>
-      <p className="text-white/35 text-sm leading-relaxed">{step.desc}</p>
-    </div>
-  )
-}
-
 export default function Services() {
   return (
     <>
@@ -141,24 +124,21 @@ export default function Services() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-20">
-            <RevealBlock>
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.1s', animationDuration: '0.8s' }}>
               <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
                 <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
                 Nossas soluções
               </div>
-            </RevealBlock>
-            <RevealBlock>
-              <h2 className="text-4xl md:text-5xl font-bold mb-5">
-                Soluções que geram{' '}
-                <span className="text-silver-gradient">resultados reais.</span>
-              </h2>
-            </RevealBlock>
-            <RevealBlock>
-              <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
-                Cada serviço é entregue com foco em performance, consistência e crescimento sustentável para o seu negócio.
-              </p>
-            </RevealBlock>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-5 animate-fade-in-up" style={{ animationDelay: '0.2s', animationDuration: '0.8s' }}>
+              Soluções que geram{' '}
+              <span className="text-silver-gradient">resultados reais.</span>
+            </h2>
+            <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.3s', animationDuration: '0.8s' }}>
+              Cada serviço é entregue com foco em performance, consistência e crescimento sustentável para o seu negócio.
+            </p>
           </div>
+
           <div className="grid grid-cols-6 gap-4">
             {services.map((s, i) => <ServiceCard key={i} s={s} index={i} />)}
           </div>
@@ -173,28 +153,41 @@ export default function Services() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <RevealBlock>
+            <div className="animate-fade-in-up" style={{ animationDelay: '1.4s', animationDuration: '0.8s' }}>
               <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
                 <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
                 Nosso processo
               </div>
-            </RevealBlock>
-            <RevealBlock>
-              <h2 className="text-4xl md:text-5xl font-bold mb-5">Como <span className="text-silver-gradient">trabalhamos.</span></h2>
-            </RevealBlock>
-            <RevealBlock>
-              <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
-                Um método claro, transparente e orientado a resultados — para que você saiba exatamente o que esperar.
-              </p>
-            </RevealBlock>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-5 animate-fade-in-up" style={{ animationDelay: '1.5s', animationDuration: '0.8s' }}>
+              Como <span className="text-silver-gradient">trabalhamos.</span>
+            </h2>
+            <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed animate-fade-in-up" style={{ animationDelay: '1.6s', animationDuration: '0.8s' }}>
+              Um método claro, transparente e orientado a resultados — para que você saiba exatamente o que esperar.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
             <div className="hidden md:block absolute top-[54px] left-[calc(16.66%+32px)] right-[calc(16.66%+32px)] h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(200,207,217,0.1) 30%, rgba(200,207,217,0.1) 70%, transparent)' }} />
-            {steps.map((step, i) => <StepCard key={i} step={step} />)}
+            {steps.map((step, i) => (
+              <div key={i} className="flex flex-col items-center text-center p-8 rounded-2xl animate-fade-in-up"
+                style={{
+                  background: 'linear-gradient(145deg, rgba(12,20,38,0.8), rgba(8,14,26,0.95))',
+                  border: '1px solid rgba(200,207,217,0.05)',
+                  animationDelay: `${1.7 + i * 0.12}s`,
+                  animationDuration: '0.8s',
+                }}
+              >
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6 relative z-10" style={{ background: 'linear-gradient(145deg, #0e1628, #090f1e)', border: '1px solid rgba(200,207,217,0.1)' }}>
+                  <span className="text-silver-gradient text-lg font-bold">{step.num}</span>
+                </div>
+                <h3 className="text-white font-bold text-xl mb-3">{step.title}</h3>
+                <p className="text-white/35 text-sm leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
           </div>
 
-          <RevealBlock className="text-center mt-16">
+          <div className="text-center mt-16 animate-fade-in-up" style={{ animationDelay: '2.1s', animationDuration: '0.8s' }}>
             <p className="text-white/25 text-sm mb-6">Pronto para dar o próximo passo?</p>
             <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-primary px-10 py-4 rounded-full text-sm tracking-wide inline-flex items-center gap-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -202,7 +195,7 @@ export default function Services() {
               </svg>
               Agendar conversa gratuita no WhatsApp
             </a>
-          </RevealBlock>
+          </div>
         </div>
       </section>
     </>
