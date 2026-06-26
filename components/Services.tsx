@@ -1,3 +1,5 @@
+'use client'
+
 const WA = 'https://wa.me/5511913192334?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Trove%20Company.'
 
 const services = [
@@ -75,17 +77,15 @@ export default function Services() {
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-20">
-            <div className="scroll-reveal">
-              <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
-                Nossas soluções
-              </div>
+            <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
+              Nossas soluções
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-5 scroll-reveal">
+            <h2 className="text-4xl md:text-5xl font-bold mb-5">
               Soluções que geram{' '}
               <span className="text-silver-gradient">resultados reais.</span>
             </h2>
-            <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed scroll-reveal">
+            <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
               Cada serviço é entregue com foco em performance, consistência e crescimento sustentável para o seu negócio.
             </p>
           </div>
@@ -148,16 +148,14 @@ export default function Services() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <div className="scroll-reveal">
-              <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
-                Nosso processo
-              </div>
+            <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
+              Nosso processo
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-5 scroll-reveal">
+            <h2 className="text-4xl md:text-5xl font-bold mb-5">
               Como <span className="text-silver-gradient">trabalhamos.</span>
             </h2>
-            <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed scroll-reveal">
+            <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
               Um método claro, transparente e orientado a resultados — para que você saiba exatamente o que esperar.
             </p>
           </div>
