@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 460">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1a2e"/>
+      <stop offset="100%" stop-color="#060e1e"/>
+    </linearGradient>
+    <linearGradient id="sg1" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#cdd4de"/>
+      <stop offset="20%" stop-color="#edf0f6"/>
+      <stop offset="55%" stop-color="#aeb8c6"/>
+      <stop offset="80%" stop-color="#c6ceda"/>
+      <stop offset="100%" stop-color="#a4b0be"/>
+    </linearGradient>
+    <linearGradient id="sg2" x1="85%" y1="0%" x2="15%" y2="100%">
+      <stop offset="0%" stop-color="#d6dbe8"/>
+      <stop offset="30%" stop-color="#eef1f7"/>
+      <stop offset="60%" stop-color="#b6c0ce"/>
+      <stop offset="100%" stop-color="#bec8d4"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d8dde8"/>
+      <stop offset="45%" stop-color="#bec8d6"/>
+      <stop offset="100%" stop-color="#94a2b2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="420" height="460" fill="url(#bg)"/>
+
+  <!-- Top bar -->
+  <rect x="58" y="55" width="304" height="26" fill="url(#sg1)" rx="1.5"/>
+  <rect x="58" y="55" width="304" height="5" fill="rgba(255,255,255,0.22)" rx="1.5"/>
+  <rect x="58" y="77" width="304" height="3" fill="rgba(0,0,0,0.18)" rx="0"/>
+
+  <!-- Second bar -->
+  <rect x="91" y="85" width="238" height="18" fill="url(#sg2)" rx="1"/>
+  <rect x="91" y="85" width="238" height="4" fill="rgba(255,255,255,0.16)" rx="1"/>
+
+  <!-- Left column -->
+  <polygon points="91,107 202,107 202,237 141,268 91,268" fill="url(#sg1)"/>
+  <polygon points="91,107 100,107 100,268 91,268" fill="rgba(255,255,255,0.2)"/>
+  <polygon points="91,107 202,107 202,116 91,116" fill="rgba(255,255,255,0.22)"/>
+  <polygon points="91,258 141,268 91,268" fill="rgba(0,0,0,0.15)"/>
+
+  <!-- Right column -->
+  <polygon points="218,107 329,107 329,268 283,268 218,237" fill="url(#sg2)"/>
+  <polygon points="319,107 329,107 329,268 283,268 312,252" fill="rgba(255,255,255,0.1)"/>
+  <polygon points="218,107 329,107 329,116 218,116" fill="rgba(255,255,255,0.22)"/>
+  <polygon points="218,258 218,237 255,268 283,268" fill="rgba(0,0,0,0.12)"/>
+
+  <!-- TROVE -->
+  <text x="210" y="342" text-anchor="middle"
+        font-family="'Cinzel', 'Palatino Linotype', 'Book Antiqua', Georgia, serif"
+        font-size="52" font-weight="700" letter-spacing="16" fill="url(#tg)">TROVE</text>
+
+  <!-- Decorative lines + COMPANY -->
+  <line x1="66" y1="366" x2="126" y2="366" stroke="#4e5e70" stroke-width="0.9"/>
+  <text x="210" y="374" text-anchor="middle"
+        font-family="'Cinzel', Georgia, serif"
+        font-size="12.5" letter-spacing="10" fill="#7a8898">COMPANY</text>
+  <line x1="294" y1="366" x2="354" y2="366" stroke="#4e5e70" stroke-width="0.9"/>
+
+  <!-- Tagline -->
+  <text x="210" y="418" text-anchor="middle"
+        font-family="'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="9" letter-spacing="4.5" fill="#38485a">ESTRATÉGIA. TECNOLOGIA. RESULTADOS.</text>
+</svg>

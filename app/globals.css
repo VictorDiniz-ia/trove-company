@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy-900: #060e1e;
+  --navy-800: #0a1628;
+  --navy-700: #0f1f3d;
+  --silver-400: #c8cfd9;
+  --silver-500: #a8b2c0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--navy-900);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brilho metálico nos títulos */
+.text-silver-gradient {
+  background: linear-gradient(135deg, #e2e6ed 0%, #a8b2c0 40%, #e2e6ed 70%, #c8cfd9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Borda com brilho */
+.border-silver-glow {
+  border: 1px solid rgba(200, 207, 217, 0.2);
+  box-shadow: 0 0 20px rgba(200, 207, 217, 0.05);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 207, 217, 0.4);
+  box-shadow: 0 8px 40px rgba(200, 207, 217, 0.1);
+}
+
+/* Animação de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+/* Glow no CTA */
+.btn-primary {
+  background: linear-gradient(135deg, #a8b2c0, #c8cfd9, #a8b2c0);
+  background-size: 200% 200%;
+  transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  color: #060e1e;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(200, 207, 217, 0.3);
+}
+
+/* Orbes flutuantes de fundo */
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30%  { transform: translate(50px, -40px) scale(1.07); }
+  65%  { transform: translate(-30px, 55px) scale(0.93); }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(-60px, 30px) scale(1.1); }
+  70%  { transform: translate(40px, -50px) scale(0.9); }
+}
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(35px, 55px) scale(0.95); }
+  75%  { transform: translate(-50px, -25px) scale(1.06); }
+}
+
+/* Animação de entrada dos cards ao scrollar */
+.card-enter {
+  opacity: 0;
+  transform: translateY(48px);
+}
+.card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
