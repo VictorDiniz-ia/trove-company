@@ -84,13 +84,13 @@ export default function Hero() {
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         {/* Tag */}
-        <div className="inline-flex items-center gap-2 border border-silver-500/20 rounded-full px-4 py-1.5 mb-8 text-silver-500 text-xs tracking-[0.2em] uppercase animate-fade-in-up">
+        <div className="inline-flex items-center gap-2 border border-silver-500/20 rounded-full px-4 py-1.5 mb-8 text-silver-500 text-xs tracking-[0.2em] uppercase">
           <span className="w-1.5 h-1.5 rounded-full bg-silver-400 animate-pulse" />
           Agência de Marketing B2B
         </div>
 
         {/* Título principal */}
-        <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
           Sua empresa no{' '}
           <span className="text-silver-gradient">próximo nível</span>
           <br />
@@ -98,12 +98,12 @@ export default function Hero() {
         </h1>
 
         {/* Subtítulo */}
-        <p className="text-silver-500 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <p className="text-silver-500 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
           Estratégia, tecnologia e resultados mensuráveis para empresas que querem crescer com consistência no ambiente digital.
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href="https://wa.me/5511913192334?text=Olá!%20Gostaria%20de%20agendar%20uma%20conversa%20gratuita%20com%20a%20Trove%20Company."
             target="_blank"
@@ -124,7 +124,7 @@ export default function Hero() {
         </div>
 
         {/* Linha de credibilidade */}
-        <p className="mt-14 text-silver-500/50 text-xs tracking-[0.25em] uppercase animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+        <p className="mt-14 text-silver-500/50 text-xs tracking-[0.25em] uppercase">
           Estratégia &nbsp;·&nbsp; Tecnologia &nbsp;·&nbsp; Resultados
         </p>
       </div>
