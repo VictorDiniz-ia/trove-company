@@ -1,3 +1,5 @@
+import Reveal from './Reveal'
+
 const WA = 'https://wa.me/5511913192334?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Trove%20Company.'
 
 const services = [
@@ -74,7 +76,7 @@ export default function Services() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Header */}
-          <div className="text-center mb-20">
+          <Reveal className="text-center mb-20">
             <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
               <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
               Nossas soluções
@@ -86,15 +88,14 @@ export default function Services() {
             <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
               Cada serviço é entregue com foco em performance, consistência e crescimento sustentável para o seu negócio.
             </p>
-          </div>
+          </Reveal>
 
           {/* Grid de cards */}
           <div className="grid grid-cols-6 gap-4">
             {services.map((s, i) => (
-              <div
+              <Reveal
                 key={i}
                 className={`service-card group relative col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl overflow-hidden ${i === 6 ? 'lg:col-start-3' : ''}`}
-                style={{ '--card-shadow': s.shadowColor, '--card-border': `${s.color}22` } as React.CSSProperties}
               >
                 <div className="absolute inset-0 rounded-2xl" style={{ background: `linear-gradient(135deg, ${s.color}18, transparent 60%, ${s.color}08)`, border: `1px solid ${s.color}14` }} />
                 <div className="absolute inset-[1px] rounded-2xl" style={{ background: 'linear-gradient(145deg, rgba(10,18,32,0.97), rgba(7,13,24,0.99))' }} />
@@ -124,7 +125,7 @@ export default function Services() {
                     ))}
                   </ul>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -138,7 +139,7 @@ export default function Services() {
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(200,207,217,0.07), transparent)' }} />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
+          <Reveal className="text-center mb-16">
             <div className="inline-flex items-center gap-2 border border-white/8 rounded-full px-4 py-1.5 mb-6 text-xs tracking-[0.2em] uppercase text-white/25">
               <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
               Nosso processo
@@ -149,12 +150,12 @@ export default function Services() {
             <p className="text-white/35 max-w-xl mx-auto text-base leading-relaxed">
               Um método claro, transparente e orientado a resultados — para que você saiba exatamente o que esperar.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
             <div className="hidden md:block absolute top-[54px] left-[calc(16.66%+32px)] right-[calc(16.66%+32px)] h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(200,207,217,0.1) 30%, rgba(200,207,217,0.1) 70%, transparent)' }} />
             {steps.map((step, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-8 rounded-2xl"
+              <Reveal key={i} className="flex flex-col items-center text-center p-8 rounded-2xl"
                 style={{ background: 'linear-gradient(145deg, rgba(12,20,38,0.8), rgba(8,14,26,0.95))', border: '1px solid rgba(200,207,217,0.05)' }}
               >
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6 relative z-10" style={{ background: 'linear-gradient(145deg, #0e1628, #090f1e)', border: '1px solid rgba(200,207,217,0.1)' }}>
@@ -162,11 +163,11 @@ export default function Services() {
                 </div>
                 <h3 className="text-white font-bold text-xl mb-3">{step.title}</h3>
                 <p className="text-white/35 text-sm leading-relaxed">{step.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
 
-          <div className="text-center mt-16">
+          <Reveal className="text-center mt-16">
             <p className="text-white/25 text-sm mb-6">Pronto para dar o próximo passo?</p>
             <a href={WA} target="_blank" rel="noopener noreferrer" className="btn-primary px-10 py-4 rounded-full text-sm tracking-wide inline-flex items-center gap-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -174,7 +175,7 @@ export default function Services() {
               </svg>
               Agendar conversa gratuita no WhatsApp
             </a>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>
