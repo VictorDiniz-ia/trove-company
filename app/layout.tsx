@@ -1,20 +1,34 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Cinzel, Inter } from 'next/font/google'
+import { Plus_Jakarta_Sans } from 'next/font/google'
 
-const cinzel = Cinzel({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-cinzel' })
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'], variable: '--font-jakarta' })
+
+const title = 'Trove Company — Marketing e Sistemas sob medida para empresas'
+const description =
+  'A Trove traz clientes para sua empresa com sites, SEO, Google, Instagram e tráfego pago — e organiza sua operação com sistemas feitos sob medida. Atendemos todo o Brasil.'
 
 export const metadata: Metadata = {
-  title: 'Trove Company — Estratégia. Tecnologia. Resultados.',
-  description:
-    'Agência de marketing B2B especializada em criação de sites, SEO, tráfego pago, identidade visual e automação digital para empresas que querem crescer.',
-  keywords: 'agência marketing B2B, criação de sites, SEO, tráfego pago, identidade visual',
+  metadataBase: new URL('https://trovecompany.com.br'),
+  title,
+  description,
+  keywords:
+    'agência de marketing B2B, sistemas sob medida, sistema personalizado para empresas, criação de sites, SEO, tráfego pago, gestão de Instagram, identidade visual',
+  openGraph: {
+    title,
+    description,
+    url: 'https://trovecompany.com.br',
+    siteName: 'Trove Company',
+    locale: 'pt_BR',
+    type: 'website',
+    images: [{ url: '/brand/trove-foto-perfil.png', width: 1080, height: 1080, alt: 'Trove Company' }],
+  },
+  icons: { icon: '/brand/trove-simbolo-prata.svg' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${cinzel.variable} ${inter.variable}`}>
+    <html lang="pt-BR" className={jakarta.variable}>
       <body>{children}</body>
     </html>
   )

@@ -23,8 +23,32 @@ html {
 body {
   background-color: var(--navy-900);
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f1dcae 0%, #d4b47a 45%, #b8954f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #b8954f, #e6cc96, #b8954f);
+  background-size: 200% 200%;
+  color: #0b1220;
+  font-weight: 700;
+  transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.btn-gold:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(212, 180, 122, 0.3);
 }
 
 .text-silver-gradient {
