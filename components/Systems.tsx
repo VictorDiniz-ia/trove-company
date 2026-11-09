@@ -1,5 +1,6 @@
 import { WA, WhatsAppIcon } from './WhatsApp'
 import StoreShowcase from './StoreShowcase'
+import FarmShowcase from './FarmShowcase'
 
 const GOLD = '#D4B47A'
 
@@ -197,6 +198,7 @@ export default function Systems() {
           <p className="text-white/40 max-w-xl mx-auto">Alguns exemplos. Se a sua empresa precisa de algo diferente, a gente desenha junto.</p>
         </div>
         <StoreShowcase />
+        <FarmShowcase />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {examples.map((e) => (
             <div
