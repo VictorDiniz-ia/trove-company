@@ -8,6 +8,9 @@
   --navy-700: #0f1f3d;
   --silver-400: #c8cfd9;
   --silver-500: #a8b2c0;
+  --gold: #d4b47a;
+  --paper: #eef1f5;
+  --ink: #0b1a33;
 }
 
 * {
@@ -18,6 +21,13 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+/* clip (not hidden) keeps position: sticky working */
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
@@ -25,17 +35,44 @@ body {
   color: white;
   font-family: var(--font-jakarta), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
-h1, h2, h3 {
+::selection {
+  background: var(--gold);
+  color: #0b1220;
+}
+
+h1,
+h2,
+h3 {
   letter-spacing: -0.02em;
 }
 
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ───────── Texto e botões da marca ───────── */
 .text-gold-gradient {
   background: linear-gradient(135deg, #f1dcae 0%, #d4b47a 45%, #b8954f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.text-silver-gradient {
+  background: linear-gradient(135deg, #e2e6ed 0%, #a8b2c0 40%, #e2e6ed 70%, #c8cfd9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(200, 207, 217, 0.32);
 }
 
 .btn-gold {
@@ -48,31 +85,9 @@ h1, h2, h3 {
 .btn-gold:hover {
   background-position: right center;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(212, 180, 122, 0.3);
+  box-shadow: 0 10px 34px rgba(212, 180, 122, 0.32);
 }
 
-.text-silver-gradient {
-  background: linear-gradient(135deg, #e2e6ed 0%, #a8b2c0 40%, #e2e6ed 70%, #c8cfd9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.border-silver-glow {
-  border: 1px solid rgba(200, 207, 217, 0.2);
-  box-shadow: 0 0 20px rgba(200, 207, 217, 0.05);
-}
-
-/* Hero fade-in (só na primeira tela) */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  animation: fadeInUp 0.7s ease forwards;
-}
-
-/* Glow no CTA */
 .btn-primary {
   background: linear-gradient(135deg, #a8b2c0, #c8cfd9, #a8b2c0);
   background-size: 200% 200%;
@@ -86,7 +101,17 @@ h1, h2, h3 {
   box-shadow: 0 8px 30px rgba(200, 207, 217, 0.3);
 }
 
-/* Hover dos cards de serviço — via CSS puro, sem JS */
+.btn-ghost {
+  border: 1px solid rgba(200, 207, 217, 0.25);
+  color: #c8cfd9;
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+.btn-ghost:hover {
+  border-color: rgba(212, 180, 122, 0.6);
+  color: #fff;
+  background-color: rgba(212, 180, 122, 0.06);
+}
+
 .service-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -95,32 +120,156 @@ h1, h2, h3 {
   box-shadow: 0 20px 60px var(--card-shadow), 0 0 0 1px var(--card-border);
 }
 
-/* iOS/mobile: desliga efeitos pesados de GPU */
+/* ───────── Entrada dos blocos marcados com data-reveal ───────── */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ───────── Hero ───────── */
+@keyframes gridPan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 64px 64px;
+  }
+}
+.hero-grid {
+  background-image: linear-gradient(rgba(200, 207, 217, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 207, 217, 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: gridPan 14s linear infinite;
+  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 42%, #000 15%, transparent 72%);
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 42%, #000 15%, transparent 72%);
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.float-y {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+@keyframes scrollCue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.scroll-cue {
+  animation: scrollCue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* ───────── Faixas que correm sozinhas ───────── */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee var(--dur, 45s) linear infinite;
+}
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+/* ───────── Borda dourada que gira ───────── */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spinAngle {
+  to {
+    --angle: 360deg;
+  }
+}
+.border-spin {
+  background: conic-gradient(
+    from var(--angle),
+    rgba(212, 180, 122, 0.1) 0deg,
+    rgba(241, 220, 174, 0.95) 50deg,
+    rgba(212, 180, 122, 0.1) 110deg,
+    rgba(200, 207, 217, 0.12) 220deg,
+    rgba(212, 180, 122, 0.1) 360deg
+  );
+  animation: spinAngle 7s linear infinite;
+}
+
+/* ───────── Luz que segue o mouse nos cards ───────── */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(212, 180, 122, 0.13), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Celular: desliga efeitos pesados de GPU */
 @media (max-width: 767px) {
   .blur-orb {
     filter: none !important;
     opacity: 0.25;
   }
-  .backdrop-blur-md {
+  .backdrop-blur-md,
+  .backdrop-blur-xl {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
   }
 }
 
-/* Orbes flutuantes */
-@keyframes orbFloat1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  30%  { transform: translate(50px, -40px) scale(1.07); }
-  65%  { transform: translate(-30px, 55px) scale(0.93); }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-grid,
+  .marquee-track,
+  .border-spin,
+  .float-y,
+  .scroll-cue {
+    animation: none;
+  }
 }
-@keyframes orbFloat2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  40%  { transform: translate(-60px, 30px) scale(1.1); }
-  70%  { transform: translate(40px, -50px) scale(0.9); }
-}
-@keyframes orbFloat3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25%  { transform: translate(35px, 55px) scale(0.95); }
-  75%  { transform: translate(-50px, -25px) scale(1.06); }
-}
-

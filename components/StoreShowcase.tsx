@@ -137,7 +137,7 @@ export default function StoreShowcase() {
   const active = tabs.find((t) => t.id === tab)!
 
   return (
-    <div data-reveal className="relative rounded-3xl p-[1px] mb-6" style={{ background: `linear-gradient(135deg, ${GOLD}55, rgba(200,207,217,0.08) 45%, ${GOLD}22)` }}>
+    <div className="relative rounded-3xl p-[1px]" style={{ background: `linear-gradient(135deg, ${GOLD}55, rgba(200,207,217,0.08) 45%, ${GOLD}22)` }}>
       <div className="rounded-3xl p-6 sm:p-8 md:p-10" style={{ background: 'radial-gradient(120% 120% at 0% 0%, #12213b 0%, #0a1426 45%, #070d19 100%)' }}>
         <div className="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-10 items-center">
           {/* Copy */}

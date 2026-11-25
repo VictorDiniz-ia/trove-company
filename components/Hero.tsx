@@ -1,143 +1,178 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
+import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform } from 'framer-motion'
+import { BarChart3, MapPin, Megaphone, MessageCircle, ShoppingBag, ArrowDown } from 'lucide-react'
 import { WA, WhatsAppIcon } from './WhatsApp'
+import { EASE, Magnetic, SplitWords, useDesktop } from './motion'
+
+/* What Trove delivers, shown as live notifications around the headline. */
+const chips = [
+  { icon: MapPin, title: 'Você apareceu no Google', sub: 'Busca: seu serviço + sua cidade', pos: 'left-[3%] top-[24%]' },
+  { icon: Megaphone, title: 'Novo contato pelo anúncio', sub: 'Campanha no Instagram', pos: 'right-[3%] top-[20%]' },
+  { icon: ShoppingBag, title: 'Pedido recebido pelo site', sub: 'Já registrado no painel', pos: 'left-[5%] bottom-[18%]' },
+  { icon: MessageCircle, title: 'Cobrança enviada', sub: 'Mensagem pronta no WhatsApp', pos: 'right-[5%] bottom-[22%]' },
+  { icon: BarChart3, title: 'Relatório do mês pronto', sub: 'Vendas, custos e lucro', pos: '' },
+]
+
+function Chip({ icon: Icon, title, sub }: { icon: typeof MapPin; title: string; sub: string }) {
+  return (
+    <div className="flex items-center gap-3 rounded-2xl pl-3 pr-5 py-3 bg-[#0b1628]/80 border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-md">
+      <span className="w-9 h-9 shrink-0 rounded-xl flex items-center justify-center bg-[#D4B47A]/[0.12] border border-[#D4B47A]/25 text-[#D4B47A]">
+        <Icon size={17} strokeWidth={1.8} />
+      </span>
+      <span className="text-left">
+        <span className="block text-[13px] font-semibold text-white whitespace-nowrap">{title}</span>
+        <span className="block text-[11px] text-white/40 whitespace-nowrap">{sub}</span>
+      </span>
+      <span className="ml-1 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]" />
+    </div>
+  )
+}
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const ref = useRef<HTMLElement>(null)
+  const desktop = useDesktop()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 140])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.94])
+  const markY = useTransform(scrollYProgress, [0, 1], [0, 220])
+  const markRotate = useTransform(scrollYProgress, [0, 1], [0, 8])
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    const isMobile = window.innerWidth < 768
-    if (isMobile) return
-
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = []
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.4 + 0.1,
-      })
-    }
-
-    let animId: number
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      particles.forEach((p) => {
-        p.x += p.vx
-        p.y += p.vy
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(200, 207, 217, ${p.opacity})`
-        ctx.fill()
-      })
-
-      particles.forEach((a, i) => {
-        particles.slice(i + 1).forEach((b) => {
-          const dist = Math.hypot(a.x - b.x, a.y - b.y)
-          if (dist < 120) {
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(200, 207, 217, ${0.06 * (1 - dist / 120)})`
-            ctx.lineWidth = 0.5
-            ctx.stroke()
-          }
-        })
-      })
-
-      animId = requestAnimationFrame(draw)
-    }
-
-    draw()
-
-    const onResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    window.addEventListener('resize', onResize)
-
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', onResize)
-    }
-  }, [])
+  const mx = useMotionValue(-999)
+  const my = useMotionValue(-999)
+  const spotlight = useMotionTemplate`radial-gradient(620px circle at ${mx}px ${my}px, rgba(212,180,122,0.09), transparent 60%)`
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#060e1e] pt-28 pb-20">
-      {/* Partículas animadas */}
-      <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />
+    <section
+      id="topo"
+      ref={ref}
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-[#060e1e] pt-28 pb-44 xl:pb-24"
+      onMouseMove={(e) => {
+        if (!desktop) return
+        const r = e.currentTarget.getBoundingClientRect()
+        mx.set(e.clientX - r.left)
+        my.set(e.clientY - r.top)
+      }}
+    >
+      {/* Fundo: grade animada, brilho e monograma */}
+      <div className="absolute inset-0 hero-grid pointer-events-none" />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(60% 50% at 50% 35%, rgba(21,40,71,0.55), transparent 70%)' }} />
+      <motion.div className="absolute inset-0 pointer-events-none hidden md:block" style={{ background: spotlight }} />
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+        <motion.img
+          src="/brand/trove-simbolo-prata.svg"
+          alt=""
+          aria-hidden="true"
+          className="w-[560px] md:w-[820px] max-w-none"
+          style={{ y: markY, rotate: markRotate }}
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 0.045, scale: 1 }}
+          transition={{ duration: 2.2, ease: EASE }}
+        />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#060e1e] to-transparent pointer-events-none" />
 
-      {/* Gradiente de fundo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628]/60 via-transparent to-[#060e1e]" />
+      {/* Notificações flutuantes (telas grandes) */}
+      {chips.slice(0, 4).map((c, i) => (
+        <motion.div
+          key={c.title}
+          className={`absolute z-10 hidden xl:block ${c.pos}`}
+          initial={{ opacity: 0, y: 30, scale: 0.92 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1, ease: EASE, delay: 1.1 + i * 0.18 }}
+        >
+          <div className="float-y" style={{ animationDelay: `${i * -1.4}s` }}>
+            <Chip {...c} />
+          </div>
+        </motion.div>
+      ))}
 
-      {/* Círculo de luz central */}
-      <div className="blur-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#152847]/30 blur-[120px] pointer-events-none" />
+      <motion.div style={{ y: contentY, opacity: contentOpacity, scale: contentScale }} className="relative z-10 w-full max-w-5xl mx-auto px-5 sm:px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
+          className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 mb-8 text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-silver-400"
+        >
+          <span className="relative flex w-1.5 h-1.5">
+            <span className="absolute inset-0 rounded-full bg-[#D4B47A] animate-ping opacity-60" />
+            <span className="relative w-1.5 h-1.5 rounded-full bg-[#D4B47A]" />
+          </span>
+          Marketing + tecnologia para empresas
+        </motion.div>
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        {/* Tag */}
-        <div className="inline-flex items-center gap-2 border border-silver-500/20 rounded-full px-4 py-1.5 mb-8 text-silver-500 text-[10px] sm:text-xs tracking-[0.18em] uppercase">
-          <span className="w-1.5 h-1.5 rounded-full bg-silver-400 animate-pulse" />
-          Marketing + Tecnologia para empresas
-        </div>
-
-        {/* Título principal */}
-        <h1 className="text-[40px] sm:text-5xl md:text-7xl font-bold leading-[1.08] mb-6">
-          Sua empresa no
-          <br />
-          <span className="text-silver-gradient">próximo nível</span> digital.
+        <h1 className="font-extrabold tracking-[-0.045em] leading-[0.98] text-[clamp(42px,11.5vw,108px)] mb-7">
+          <SplitWords
+            delay={0.25}
+            lines={[
+              { text: 'Sua empresa no', className: 'text-white' },
+              { text: 'próximo nível', className: 'text-gold-gradient pr-[0.04em]' },
+              { text: 'digital.', className: 'text-silver-gradient' },
+            ]}
+          />
         </h1>
 
-        {/* Subtítulo */}
-        <p className="text-silver-500 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-          A Trove traz o cliente com site, Google, Instagram e anúncios — e organiza sua empresa por dentro com{' '}
-          <span className="text-silver-300">sistemas feitos sob medida</span> para o jeito que você trabalha.
-        </p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
+          className="text-silver-500 text-[17px] md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+        >
+          A Trove traz o cliente com <span className="text-white">site, Google, Instagram e anúncios</span> — e organiza sua empresa por dentro com{' '}
+          <span className="text-[#D4B47A]">sistemas feitos sob medida</span>.
+        </motion.p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href={WA.diagnostico}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary px-8 py-4 rounded-full text-base tracking-wide inline-flex items-center gap-2"
-          >
-            <WhatsAppIcon />
-            Quero meu diagnóstico gratuito
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 1 }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4"
+        >
+          <Magnetic>
+            <a
+              href={WA.diagnostico}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gold w-full sm:w-auto px-8 py-4 rounded-full text-[15px] tracking-wide inline-flex items-center justify-center gap-2.5"
+            >
+              <WhatsAppIcon />
+              Quero meu diagnóstico gratuito
+            </a>
+          </Magnetic>
+          <a href="#cases" className="btn-ghost px-8 py-4 rounded-full text-[15px] tracking-wide inline-flex items-center justify-center gap-2">
+            Ver cases reais
           </a>
-          <a
-            href="#sistemas"
-            className="px-8 py-4 rounded-full text-base tracking-wide border border-silver-500/30 text-silver-400 hover:border-silver-400/60 hover:text-silver-300 transition-all duration-300"
-          >
-            Conhecer os sistemas
-          </a>
+        </motion.div>
+      </motion.div>
+
+      {/* Notificações em faixa (celular e telas médias) */}
+      <motion.div
+        className="xl:hidden absolute left-0 right-0 bottom-16 z-10 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.3 }}
+      >
+        <div className="marquee-track flex w-max gap-3" style={{ ['--dur' as string]: '38s' }}>
+          {[...chips, ...chips].map((c, i) => (
+            <div key={i} className="scale-[0.92] origin-left">
+              <Chip {...c} />
+            </div>
+          ))}
         </div>
+      </motion.div>
 
-        {/* Pilares */}
-        <p className="mt-14 text-silver-500/50 text-xs tracking-[0.22em] uppercase leading-loose">
-          Sites &nbsp;·&nbsp; Google &nbsp;·&nbsp; Instagram &nbsp;·&nbsp; Anúncios &nbsp;·&nbsp;{' '}
-          <span className="text-[#D4B47A]/80">Sistemas sob medida</span>
-        </p>
-      </div>
-
-      {/* Seta scroll */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-silver-500/40">
-          <path d="M10 3v14M3 10l7 7 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </div>
+      {/* Indicador de rolagem */}
+      <a href="#sobre" className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-white/60 transition-colors">
+        Role
+        <span className="relative w-px h-10 bg-white/10 overflow-hidden">
+          <span className="scroll-cue absolute inset-0 bg-[#D4B47A]" />
+        </span>
+      </a>
+      <a href="#sobre" aria-label="Rolar para baixo" className="md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-white/30">
+        <ArrowDown size={18} />
+      </a>
     </section>
   )
 }

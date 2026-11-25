@@ -7,7 +7,11 @@ export const WA = {
   diagnostico: waLink('Olá! Quero o Diagnóstico Digital gratuito da Trove para a minha empresa.'),
   sistema: waLink('Olá! Quero conversar sobre um sistema sob medida para a minha empresa.'),
   servicos: waLink('Olá! Gostaria de saber mais sobre os serviços da Trove Company.'),
+  presenca: waLink('Olá! Quero que minha empresa seja encontrada no Google e tenha um site que gere contatos.'),
+  anuncios: waLink('Olá! Quero atrair mais clientes com anúncios e redes sociais.'),
 }
+
+export const PHONE_LABEL = '(11) 91319-2334'
 
 export function WhatsAppIcon({ size = 18 }: { size?: number }) {
   return (
